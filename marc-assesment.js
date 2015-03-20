@@ -47,7 +47,7 @@ var Messages = {
 };
 
 var interface = function(){
-	console.log("===========================\nDetroit Labs Public Library\n===========================\nMENU\n1) List all books\n2) Add a book");
+	console.log("===========================\nDetroit Labs Public Library\n===========================\nMENU\n1) List all books\n2) Add a book\n3) Remove a book\n4) Quit");
 	
 	switch(userInput(Messages.initial)){
 		case "1" :
@@ -55,6 +55,13 @@ var interface = function(){
 			break;
 		case "2" :
 			addBook();
+			break;
+		case "3" :
+			removeBook();
+			break;
+		case "4" :
+			console.log("===========================\nGoodbye, and have a great day!\n===========================");
+			process.exit();
 			break;
 		default :
 			console.log("\n*****************************\nERROR:\nPlease choose a number from the menu");
@@ -91,6 +98,25 @@ var addBook = function(){
 
 	interface();
 };
+
+var removeBook = function(){
+	var sayBookToRemove = userInput("What is the ID of the book that you would like to remove?\nEnter 'list books' to review the books in your Library");
+	if(sayBookToRemove === "list books"){
+		listBooks();
+		console.log(sayBookToRemove);
+	} else {
+		console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nThe book " + Library[sayBookToRemove].booktitle);
+		//take the number they put in and find that book in the library.
+		delete Library[sayBookToRemove];
+		//delete that book.
+		console.log("has been removed.");
+
+		interface();
+	}
+
+	
+};
+
 
 interface();
 
