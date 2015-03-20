@@ -47,7 +47,7 @@ var Messages = {
 };
 
 var interface = function(){
-	console.log("===========================\nDetroit Labs Public Library\n===========================\nMENU\n1) List all books\n2) Add a book\n3) Remove a book\n4) Quit");
+	console.log("===========================\nDetroit Labs Public Library\n===========================\nMENU\n1) List all books\n2) Add a book\n3) Remove a book\n4) Quit\n5) Search by genre");
 	
 	switch(userInput(Messages.initial)){
 		case "1" :
@@ -62,6 +62,9 @@ var interface = function(){
 		case "4" :
 			console.log("===========================\nGoodbye, and have a great day!\n===========================");
 			process.exit();
+			break;
+		case "5" :
+			listByGenre();
 			break;
 		default :
 			console.log("\n*****************************\nERROR:\nPlease choose a number from the menu");
@@ -113,9 +116,20 @@ var removeBook = function(){
 
 		interface();
 	}
-
-	
 };
+
+var listByGenre = function(){
+	var genreToSearch = userInput("What genre would you like to search for?");
+
+	for(book in Library){
+		if(Library[book].genre == genreToSearch){
+			console.log(Library[book].booktitle);
+		}
+	}
+	interface();
+};
+	
+
 
 
 interface();
