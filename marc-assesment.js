@@ -14,13 +14,63 @@
 var sget = require('sget');
 
 function userInput(str){
-	return sget(str);
+	return sget(str).trim();
 };
 
-var Book = new Object();
-	Book.title = title;
+var Library = {
+	"1" : {
+		booktitle : "The Wizard of Oz",
+		author : "Johnathan Ozzwald",
+		genre: "Absolute fact",
+		pagecount : "650"}
+};
+var bookIdCounter = 1;
+
+function Book(bookTitle, author, genre, pageCount, checkedOut){
+	Book.bookTitle = bookTitle;
 	Book.author = author;
 	Book.genre = genre;
-	Book.length = length;
+	Book.pageCount = pageCount;
 	Book.checkedOut = checkedOut;
+};
+
+var Messages = {
+	initial : "What would you like to do?",
+	addbook : {
+		booktitle : "What is the title of this book?",
+		author : "Who was this book written by?",
+		genre: "What genre is this book in?",
+		pagecount : "How many pages long is this book?",
+		}
+};
+
+var interface = function(){
+	console.log("===========================\nDetroit Labs Public Library\n===========================\nMENU\n1) Add a book");
 	
+	switch(userInput(Messages.initial)){
+		case "1" :
+			addBook();
+			break;
+		default :
+			console.log("\n*****************************\nERROR:\nPlease choose a number from the menu");
+			interface();
+	}
+};
+
+var addBook = function(){
+	bookIdCounter ++;
+	Library[bookIdCounter] = {"booktitle" : "booktitle"};
+
+	Library[bookIdCounter].booktitle = userInput(Messages.addbook.booktitle);
+	Library[bookIdCounter].author = userInput(Messages.addbook.author);
+	Library[bookIdCounter].genre = userInput(Messages.addbook.genre);
+	Library[bookIdCounter].pagecount = userInput(Messages.addbook.pagecount);
+	
+	var displayBookTitle = Library[bookIdCounter].booktitle.toUpperCase();
+	
+	console.log("______________________________\nYou have added:\n" + displayBookTitle + "\n" + "ID: " + bookIdCounter + "\nBy: " + Library[bookIdCounter].author + "\nGenre: " + Library[bookIdCounter].genre + "\n" + Library[bookIdCounter].pagecount + " pages");
+	interface();
+};
+
+interface();
+
