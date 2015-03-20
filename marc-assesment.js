@@ -19,10 +19,12 @@ function userInput(str){
 
 var Library = {
 	"1" : {
-		booktitle : "The Wizard of Oz",
-		author : "Johnathan Ozzwald",
-		genre: "Absolute fact",
-		pagecount : "650"}
+		"booktitle" : "The Wizard of Oz",
+		"author" : "Johnathan Ozzwald",
+		"genre" : "Absolute fact",
+		"pagecount" : "650",
+		"bookid" : "1"
+	}
 };
 var bookIdCounter = 1;
 
@@ -45,16 +47,32 @@ var Messages = {
 };
 
 var interface = function(){
-	console.log("===========================\nDetroit Labs Public Library\n===========================\nMENU\n1) Add a book");
+	console.log("===========================\nDetroit Labs Public Library\n===========================\nMENU\n1) List all books\n2) Add a book");
 	
 	switch(userInput(Messages.initial)){
 		case "1" :
+			listBooks();
+			break;
+		case "2" :
 			addBook();
 			break;
 		default :
 			console.log("\n*****************************\nERROR:\nPlease choose a number from the menu");
 			interface();
 	}
+};
+
+var listBooks = function(){
+	console.log("---------------------------\nLIBRARY INVENTORY:\n---------------------------\n");
+
+	for(book in Library){
+		
+		var displayBookTitle = Library[book].booktitle.toUpperCase();
+
+		console.log(displayBookTitle + "\n" + "ID: " + Library[book].bookid + "\nBy: " + Library[book].author + "\nGenre: " + Library[book].genre + "\n" + Library[book].pagecount + " pages\n______________________________");
+	
+	}
+	interface();
 };
 
 var addBook = function(){
@@ -65,10 +83,12 @@ var addBook = function(){
 	Library[bookIdCounter].author = userInput(Messages.addbook.author);
 	Library[bookIdCounter].genre = userInput(Messages.addbook.genre);
 	Library[bookIdCounter].pagecount = userInput(Messages.addbook.pagecount);
+	Library[bookIdCounter].bookid = bookIdCounter;
 	
 	var displayBookTitle = Library[bookIdCounter].booktitle.toUpperCase();
 	
 	console.log("______________________________\nYou have added:\n" + displayBookTitle + "\n" + "ID: " + bookIdCounter + "\nBy: " + Library[bookIdCounter].author + "\nGenre: " + Library[bookIdCounter].genre + "\n" + Library[bookIdCounter].pagecount + " pages");
+
 	interface();
 };
 
